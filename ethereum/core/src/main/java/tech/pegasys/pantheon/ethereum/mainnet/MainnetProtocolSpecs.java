@@ -261,7 +261,9 @@ public abstract class MainnetProtocolSpecs {
       final OptionalInt contractSizeLimit,
       final OptionalInt configStackSizeLimit) {
     return constantinopleFixDefinition(chainId, contractSizeLimit, configStackSizeLimit)
-        .name("Istanbul");
+        .gasCalculator(IstanbulGasCalculator::new)
+        .precompileContractRegistryBuilder(MainnetPrecompiledContractRegistries::istanbul)
+        .name("Istanbul"); // TODO need to add other declaration?
   }
 
   private static TransactionReceipt frontierTransactionReceiptFactory(

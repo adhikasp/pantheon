@@ -173,6 +173,12 @@ public class FrontierGasCalculator implements GasCalculator {
   }
 
   @Override
+  public Gas blake2bPrecompiledContractGasCost(final BytesValue input) {
+    throw new UnsupportedOperationException(
+            "Blake2b not supported by " + getClass().getSimpleName());
+  }
+
+  @Override
   public Gas getZeroTierGasCost() {
     return Gas.ZERO;
   }

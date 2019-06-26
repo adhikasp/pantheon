@@ -13,14 +13,7 @@
 package tech.pegasys.pantheon.ethereum.mainnet;
 
 import tech.pegasys.pantheon.ethereum.core.Address;
-import tech.pegasys.pantheon.ethereum.mainnet.precompiles.AltBN128AddPrecompiledContract;
-import tech.pegasys.pantheon.ethereum.mainnet.precompiles.AltBN128MulPrecompiledContract;
-import tech.pegasys.pantheon.ethereum.mainnet.precompiles.AltBN128PairingPrecompiledContract;
-import tech.pegasys.pantheon.ethereum.mainnet.precompiles.BigIntegerModularExponentiationPrecompiledContract;
-import tech.pegasys.pantheon.ethereum.mainnet.precompiles.ECRECPrecompiledContract;
-import tech.pegasys.pantheon.ethereum.mainnet.precompiles.IDPrecompiledContract;
-import tech.pegasys.pantheon.ethereum.mainnet.precompiles.RIPEMD160PrecompiledContract;
-import tech.pegasys.pantheon.ethereum.mainnet.precompiles.SHA256PrecompiledContract;
+import tech.pegasys.pantheon.ethereum.mainnet.precompiles.*;
 import tech.pegasys.pantheon.ethereum.mainnet.precompiles.privacy.PrivacyPrecompiledContract;
 import tech.pegasys.pantheon.ethereum.vm.GasCalculator;
 
@@ -58,6 +51,20 @@ public abstract class MainnetPrecompiledContractRegistries {
       final PrecompiledContractConfiguration precompiledContractConfiguration) {
     final PrecompileContractRegistry registry = new PrecompileContractRegistry();
     populateForByzantium(registry, precompiledContractConfiguration.getGasCalculator());
+    return registry;
+  }
+
+  private static PrecompileContractRegistry populateForIstanbul(
+      final PrecompileContractRegistry registry, final GasCalculator gasCalculator) {
+    populateForByzantium(registry, gasCalculator);
+    registry.put(Address.Blake2b_PAIRING, new Blake2bPrecompiledContract(gasCalculator));
+    return registry;
+  }
+
+  public static PrecompileContractRegistry istanbul(
+          final PrecompiledContractConfiguration precompiledContractConfiguration) {
+    final PrecompileContractRegistry registry = new PrecompileContractRegistry();
+    populateForIstanbul(registry, precompiledContractConfiguration.getGasCalculator());
     return registry;
   }
 

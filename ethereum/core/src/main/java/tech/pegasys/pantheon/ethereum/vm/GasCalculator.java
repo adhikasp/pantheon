@@ -17,6 +17,7 @@ import tech.pegasys.pantheon.ethereum.core.Gas;
 import tech.pegasys.pantheon.ethereum.core.Transaction;
 import tech.pegasys.pantheon.ethereum.core.Wei;
 import tech.pegasys.pantheon.ethereum.mainnet.AbstractMessageProcessor;
+import tech.pegasys.pantheon.ethereum.mainnet.precompiles.Blake2bPrecompiledContract;
 import tech.pegasys.pantheon.ethereum.mainnet.precompiles.ECRECPrecompiledContract;
 import tech.pegasys.pantheon.ethereum.mainnet.precompiles.IDPrecompiledContract;
 import tech.pegasys.pantheon.ethereum.mainnet.precompiles.RIPEMD160PrecompiledContract;
@@ -103,6 +104,14 @@ public interface GasCalculator {
    * @return the gas cost to execute the RIPEMD160 precompiled contract
    */
   Gas ripemd160PrecompiledContractGasCost(BytesValue input);
+
+  /**
+   * Returns the gas cost to execute the {@link Blake2bPrecompiledContract}.
+   *
+   * @param input The input to the Blake2b precompiled contract
+   * @return the gas cost to execute the Blake2b precompiled contract
+   */
+  Gas blake2bPrecompiledContractGasCost(BytesValue input);
 
   // Gas Tier Lookups
 

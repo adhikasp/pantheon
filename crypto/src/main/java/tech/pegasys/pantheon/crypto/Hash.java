@@ -33,6 +33,7 @@ public abstract class Hash {
 
   private static final String SHA256_ALG = "SHA-256";
   private static final String RIPEMD160 = "RIPEMD160";
+  private static final String BLAKE2B_ALG = "BLAKE2b";
 
   /**
    * Helper method to generate a digest using the provided algorithm.
@@ -80,5 +81,17 @@ public abstract class Hash {
    */
   public static BytesValue ripemd160(final BytesValue input) {
     return BytesValue.wrap(digestUsingAlgorithm(input, RIPEMD160));
+  }
+
+  /**
+   * Digest using Blake2b.
+   *
+   * @param input The input bytes to produce the digest for.
+   * @return A digest.
+   */
+  public static BytesValue Blake2b(final BytesValue input) {
+    // TODO expose `F` compression function instead
+    // See https://github.com/bcgit/bc-java/blob/master/core/src/main/java/org/bouncycastle/crypto/digests/Blake2bDigest.java#L447
+    return BytesValue.wrap(digestUsingAlgorithm(input, BLAKE2B_ALG));
   }
 }
